@@ -1,0 +1,45 @@
+
+{% extends 'base.html' %}
+
+{% load static %}
+{% block 'content' %}
+
+{% for message in messages %}
+
+{% if message.tags == 'success' %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert" style="height: 66px;">
+        <p style="padding-top: 5px;">! {{message}}</p>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{% elif message.tags == 'error' %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" style="height: 66px;">
+        <p style="padding-top: 5px;">! {{message}}</p>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{%endif%}
+{% endfor %}
+
+<div style="margin: auto; height: 400px; width: 450px; background-color: rgba(128, 128, 128, 0.309); padding: 10px; border-radius: 4px;">
+    <h3 style="margin: 20px 0px 0px 10px; text-align:center">Login Form</h3>
+    <hr>
+    <form action="{% url 'login' %}" method="POST" style="padding-bottom: 30px;">
+        {% csrf_token %}
+        <div class="formfields">
+            <label for="name">Name :</label>
+            <input class="form-control" id="name" type="text" name="name" style="margin-top:5px">
+        </div>
+        <div class="formfields">
+            <label for="password">password :</label>
+            <input class="form-control" type="password" name="password" style="margin-top:5px">
+        </div>
+        <br>
+            
+        <button style="margin: 0px 0px 0px 7px; border-radius:4px; font-size:large;"type="submit">Login</button>
+    </form>
+
+    <a style="margin-left: 7px" href="{% url 'register2' %}">Don't Have an Account ? Create New..</a>
+</div>
+
+
+{% endblock 'content' %}
+</html>

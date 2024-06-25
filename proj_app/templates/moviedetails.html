@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block 'content' %}
+{% for message in messages %}
+{% if message.tags == 'success' %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert" style="height: 66px;">
+        <p style="padding-top: 5px;">! {{message}}</p>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{% elif message.tags == 'error' %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" style="height: 66px;">
+        <p style="padding-top: 5px;">! {{message}}</p>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+{%endif%}
+{% endfor %}
+<div class="container" style="padding-bottom: 12px;">
+    <div class="row">
+        <div class="col">
+            <img src="{{ movie.movie_poster.url }}" alt="" height="550px" width="450px">
+        </div>
+        <div class="col">
+            <h4><i>{{ movie.title }}</i></h4>
+            <hr>
+            <br>
+            <p style="font-size: 20px;">Movie Name : {{movie.title.title}}</p>
+            <p style="font-size: 20px;">Movie Director : {{movie.director.title}}</p>
+            <p style="font-size: 20px;">Released Date : {{movie.release_date}}</p>
+            <p style="font-size: 20px;">Movie Review : {{movie.review.title}}</p>
+            <p style="font-size: 20px;">Movie Rating: {{movie.rating}}</p>
+            <a href="{{ movie.trailer_url }}" style="background-color: rgb(40, 40, 227); border-radius: 5px; color: white; padding: 4px; text-decoration: none; font-size:large "><i class="fa-brands fa-youtube" style="margin-right: 4px;"></i>Watch Trailer</a>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 14px;">
+        <div class="col">
+            <p style="font-size: 18px;">About :</p>
+            <p style="font-size: 18px;">{{movie.story.title}}</p>
+        </div>
+    </div>
+    <div class="row" style="padding: 15px 0px; min-height: 200px">
+        <div class="col-12" style="padding: 14px" id="orgcmtbloack">
+            <h3>{{ comment_count|length }} Comments</h3>
+            <hr>
+            <div id="cmtblock">
+                {% for i in comments %}
+                <div>
+                    <span style="background-color: rgb(97, 96, 96); color:white; border-radius: 10px; padding: 6px">{{i.username}}</span>
+                    <span>{{i.comment_date}}</span>
+                    <br>
+                    <p>comment : {{i.comment}}</p>
+                </div>
+                {% endfor %}
+                {% if comment_count|length > 3 %}
+                <b id="showallcomment">Show All Comments</b>
+                {% endif %}
+            </div>
+
+            
+        </div>
+    </div>
+    <div class="row" style="padding: 15px 0px;">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6" style="border: 1px solid black; padding: 14px" >
+            <h3>leave Your Comments</h3>
+            <hr>
+            <form action="{% url 'movie_details' movie.id %}" method="POST" >
+                {% csrf_token %}
+                <div class="row py-2">
+                    <div>
+                        {{form}}
+                    </div>
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+    
+</div>
+
+
+
+{% endblock 'content' %}

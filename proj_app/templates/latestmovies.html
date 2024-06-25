@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+
+{% block 'content' %}
+
+<h3 style="margin-top: 20px;">Latest Movies</h3>
+<hr>
+<div class="row" style="margin-top: 20px;">
+{% for i in movies %}
+    <div class=" col-6 col-sm-6 col-md-4 col-lg-3">
+        <a href="{% url 'movie_details' i.id %}" style="height:10px; text-decoration:none; color:black" ;>
+        <div class="card my-3" style="height: 550px;">
+            <img src="{{ i.movie_poster.url }}" class="card-image-top" height="400px" alt="Image not loaded"  >
+            <div class="card-body">
+                <h6 class="card-title text-primary">{{ i.title }}</h6>
+                <p class="card-text" >
+                    {{ i.story|slice:":70" }} <b>More Info....</b>
+                </p>
+            </div>
+        </div>
+        </a>
+    </div>
+{% endfor %}
+</div>
+
+{% endblock 'content' %}

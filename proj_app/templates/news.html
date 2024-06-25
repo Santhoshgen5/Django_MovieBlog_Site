@@ -1,0 +1,34 @@
+
+
+{% extends 'base.html' %}
+
+{% load static %}
+{% block 'content' %}
+
+<h3 style="margin: 20px 0px 0px 20px">News</h3>
+<hr>
+<div class="container" id="contain">
+    {% for i in news.articles %}
+    <div style="padding: 30px;">
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                <p><b>Name :</b> {{i.source.name }}</p>
+                <p><b>Author :</b> {{i.author}}</p>
+                <p><b>Title :</b> {{i.title}}</p>
+                <p><b>Discription :</b> {{i.title}}</p>
+                <p><b>published At :</b>{{i.publishedAt}}</p>
+                <p><b>Content :</b>{{i.content}} <a target="_blank" href="{{i.url}}">Read All</a></p>
+            </div>
+            <div class="col-6">
+                <img src="{{i.urlToImage}}" alt="" height="300px" width="400px">
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    
+
+</div>
+
+{% endblock 'content' %}
+
+

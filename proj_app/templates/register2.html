@@ -1,0 +1,63 @@
+
+{% extends 'base.html' %}
+
+{% load static %}
+{% block 'content' %}
+
+<div style="margin: auto; height: 620px; width: 470px; background-color: rgba(128, 128, 128, 0.309); padding: 10px; border-radius: 4px;">
+    <h3 style="margin-top: 20px; text-align:center">Register Form</h3>
+    <hr>
+    <form action="{% url 'register2' %}" method="post" id="regform" style="padding-bottom: 30px;">
+        {% csrf_token %}
+        <div class="formfields" >
+            <label for="username">Username : </label>
+            {{form.username}}
+            {{form.username.errors}}
+        </div>
+        <div class="formfields">
+            <label >Phone Number : </label>
+            {{form.ph_no}}
+            {{form.ph_no.errors}}
+        </div>
+
+        <div class="formfields">
+            <label for="email">Email : </label>
+            {{form.email}}
+            {{form.email.errors}}
+        </div>
+        <div class="formfields">
+            <label for="pass1">Password : </label>
+            {{form.password}}
+            {{form.password.errors}}
+        </div>
+        <div class="formfields">
+            <label for="pass2">Confirm Password : </label>
+            {{form.confirm_password}}
+            {{form.confirm_password.errors}}
+        </div>
+        <button class="btn btn-primary" type="submit" enable id="btn" style="margin-top: 10px;">
+            <span aria-hidden="true" id="span1"></span>
+            <span role="status" id="span2">Register</span>
+        </button>
+    </form>
+    <a href="{% url 'login' %}">Already User ?</a>
+</div>
+
+
+
+{% endblock 'content' %}
+
+{% block 'script' %}
+<script>
+    document.getElementById('regform').addEventListener('submit',()=>{
+        document.getElementById('btn').setAttribute('disabled', 'disabled')
+        document.getElementById('span1').setAttribute('class','spinner-border spinner-border-sm')
+        document.getElementById('span2').textContent='Registering...'
+        
+    })
+</script>
+{% endblock 'script' %}
+ 
+ 
+ 
+ 

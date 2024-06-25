@@ -1,0 +1,48 @@
+<nav class="navbar navbar-expand-lg navbar-light " style="background: linear-gradient(rgba(0, 0, 0, 0.099), rgba(15, 14, 14, 0.395)); margin: 0px">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#" style="font-size: 23px;"><i class="fa-solid fa-film" style="margin-right: 4px;"></i>Movies Ocean</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="{% url 'homepage' %}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="{% url 'latestmovies' %}">Latest Movies</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="{% url 'newspage' %}">News</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              TOP 3 Movies
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            {% for i in top3movies %}
+              <li><a class="dropdown-item" href="{% url 'movie_details' i.id %}">{{i.title}}</a></li>
+            {% endfor %}
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="{% url 'about' %}">About</a>
+          </li>
+          {% if request.user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link active" href="{% url 'logout' %}">Logout</a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link active" href="{% url 'login' %}">Login</a>
+          </li>
+          {% endif %}
+        </ul>
+        <form class="d-flex" action="{% url 'homepage' %}" method="POST">
+           {% csrf_token %}
+          <input name="moviesearch" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      </div>
+    </div>
+  </nav>
