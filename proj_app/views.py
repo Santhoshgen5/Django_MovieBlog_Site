@@ -82,29 +82,6 @@ def loginuser(request):
         messages.error(request, 'You Are Already Loggined !')
         return redirect('homepage')
     
-def otpview(request):
-    user = request.user
-    if request.method == 'POST':
-        form = OTPForm(request.POST)
-        if form.is_valid():
-            otp_token = form.cleaned_data['otp_token']
-            devices = TOTPDevice.objects.filter(user=user)
-            for device in devices:
-                if device.verify_token(otp_token):
-                    login(request, user)
-                    return redirect('home')
-            form.add_error('otp_token', 'Invalid OTP')
-    else:
-        form = OTPForm()
-        # Generate OTP and send it to the user via email, SMS, etc.
-        # Example using pyotp for time-based OTP generation
-        totp = pyotp.TOTP(user.otp_secret)
-        otp = totp.now()
-        # Send the OTP to the user
-        print(f"Your OTP is: {otp}")  # Replace this with actual sending logic
-
-    return render(request, 'otp.html', {'form': form})
-
 
 def logoutuser(request):
     if request.user.is_authenticated:

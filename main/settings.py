@@ -26,6 +26,10 @@ SECRET_KEY = 'django-insecure-(c$7vm^s=i*cvj9ewi@npx#3ncyht#b8vm7b5bll_@)rx*wwdz
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS = [
+    'https://f567-60-243-83-118.ngrok-free.app'
+]
+
 
 
 # Application definition
@@ -39,7 +43,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     'rest_framework',
-    'corsheaders',
     'proj_app',
     
     'django_otp',
@@ -57,7 +60,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    
     'django_otp.middleware.OTPMiddleware',
 ]
 

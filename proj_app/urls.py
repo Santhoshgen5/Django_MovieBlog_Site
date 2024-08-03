@@ -12,7 +12,6 @@ urlpatterns=[
     # path('register', views.register, name='register'),
     path('register2', views.register2, name='register2'),
     path('newspage', views.newspage, name='newspage' ),
-    path('otppage/', views.otpview, name='otppage'),
     
     # api endpoint
     path('movie_details/<int:id>/comments', views.allcomments, name='allcomments'),
